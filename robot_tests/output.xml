@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.10.6 on linux)" generated="20230427 14:46:45.161" rpa="false" schemaversion="3">
+<suite id="s1" name="Robot Tests" source="/home/vbuser2/Documents/Project_TF/robot_tests">
+<suite id="s1-s1" name="CreateOrganizationTest" source="/home/vbuser2/Documents/Project_TF/robot_tests/CreateOrganizationTest.robot">
+<test id="s1-s1-t1" name="Create Organization Test" line="5">
+<kw name="Create Organization Test" library="CreateOrganizationTest">
+<var>${ret}</var>
+<arg>%{API_BASE_URL}</arg>
+<msg timestamp="20230427 14:46:45.208" level="FAIL">ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=80): Max retries exceeded with url: /organization (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x7f9f2db02da0&gt;: Failed to establish a new connection: [Errno 111] Connection refused'))</msg>
+<status status="FAIL" starttime="20230427 14:46:45.206" endtime="20230427 14:46:45.209"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${ret}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" starttime="20230427 14:46:45.210" endtime="20230427 14:46:45.210"/>
+</kw>
+<status status="FAIL" starttime="20230427 14:46:45.204" endtime="20230427 14:46:45.210">ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=80): Max retries exceeded with url: /organization (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x7f9f2db02da0&gt;: Failed to establish a new connection: [Errno 111] Connection refused'))</status>
+</test>
+<status status="FAIL" starttime="20230427 14:46:45.174" endtime="20230427 14:46:45.212"/>
+</suite>
+<status status="FAIL" starttime="20230427 14:46:45.162" endtime="20230427 14:46:45.215"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Robot Tests">Robot Tests</stat>
+<stat pass="0" fail="1" skip="0" id="s1-s1" name="CreateOrganizationTest">Robot Tests.CreateOrganizationTest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

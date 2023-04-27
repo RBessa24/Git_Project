@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+# @Author: Rafael Direito
+# @Date:   2022-10-24 14:17:09
+# @Last Modified by:   Rafael Direito
+# @Last Modified time: 2023-04-11 10:33:56
+version: '3'
+
+services:
+  resources_manager:
+    image: ritain:tmf632-party-mgmt-api
+    container_name: tmf632-party-mgmt-api
+    environment:
+      APP_ENV: Production
+      DB_LOCATION: db
+      DB_NAME: tmf632
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    restart:
+      always
+    ports:
+      - '80:80'
+
+  db:
+    image: postgres:latest
+    container_name: tmf632-party-mgmt-api-postgresql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=tmf632
+    volumes:
+      - ./docker_data/data:/var/lib/postgresql/data
+    restart:
+      always
+    ports:
+      - '5432:5432'
+
+
