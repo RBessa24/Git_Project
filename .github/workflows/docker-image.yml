@@ -96,7 +96,7 @@ jobs:
       working-directory: Terraform/
       run: terraform validate -no-color
 
-    - name: Terraform Plan
+    - name: TerraformPlan
       id: plan
       env:
         AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
