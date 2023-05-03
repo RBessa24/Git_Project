@@ -24,6 +24,6 @@ jobs:
       - name: Set environment variable
         run: export APP_ENV=test
       - name: Run tests
-        env: $APP_ENV
+        env: APP_ENV
         run: | 
             pytest
