@@ -16,12 +16,13 @@ jobs:
           python-version: 3.9
       - name: Upgrade pip
         run: |
-          python -m pip install --upgrade pip
+            python -m pip install --upgrade pip
       - name: Install dependencies
         working-directory: api
         run: |
-          pip install -r requirements.txt
+            pip install -r requirements.txt
       - name: Set environment variable
         run: export APP_ENV=test
       - name: Run tests
-        run: pytest
+        run: | 
+            pytest
