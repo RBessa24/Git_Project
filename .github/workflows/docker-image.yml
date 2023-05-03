@@ -26,3 +26,18 @@ jobs:
           APP_ENV: test
         run: | 
             pytest
+
+
+  security_scan:
+      name: Security Scan
+      runs-on: ubuntu-20.04
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Trivy vulnerability scanner in fs mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          trivy-config: trivy.yaml
