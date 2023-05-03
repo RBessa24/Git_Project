@@ -20,8 +20,6 @@ jobs:
       - name: Install dependencies
         working-directory: api
         run: |
-          python3 -m venv venv
-          source venv/bin/activate
           pip install -r requirements.txt
       - name: Set environment variable
         run: export APP_ENV=test
