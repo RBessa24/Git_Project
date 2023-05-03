@@ -15,6 +15,7 @@ jobs:
         with:
           python-version: 3.9
       - name: Install dependencies
+        working-directory: api
         run: |
           python -m venv venv
           source venv/bin/activate
