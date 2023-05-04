@@ -118,6 +118,8 @@ jobs:
             terraform apply -auto-approve
             echo "::set-output name=aws_ecr_registry_id::$(terraform-bin output -raw aws_ecr_registry_id)"
             echo "::set-output name=aws_ecr_repository_url::$(terraform-bin output -raw aws_ecr_repository_url)"
+    outputs:
+            aws_ecr_repository_url: ${{ steps.terraform_apply.outputs.aws_ecr_repository_url }}
 
   build-img:
     name: Build Docker Image, Scan It (Security), and Push It to ECR
