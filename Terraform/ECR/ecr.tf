@@ -33,7 +33,7 @@ resource "aws_ecr_repository" "rio-academy" {
 
 ################## Outputs ########################
 output "aws_ecr_registry_id" {
-  value = aws_ecr_repository.rio-academy
+  value = aws_ecr_repository.rio-academy.registry_id
 }
 
 output "aws_ecr_repository_url" {
