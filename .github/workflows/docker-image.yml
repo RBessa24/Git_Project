@@ -56,7 +56,7 @@ jobs:
         with:
               python-version: 3.9
       - name: Checkov Test
-        uses: bridgcrewio/checkov-action@master 
+        uses: bridgecrewio/checkov-action@master 
         with:
           directory: Terraform/ECR
           framework: terraform
