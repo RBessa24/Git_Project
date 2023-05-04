@@ -104,7 +104,7 @@ jobs:
 
 
       - name: Terraform Apply
-        id: apply
+        id: tf_apply
         env: 
            AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
            AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -116,8 +116,8 @@ jobs:
             echo "::set-output name=aws_ecr_registry_id::$(terraform-bin output -raw aws_ecr_registry_id)"
             echo "::set-output name=aws_ecr_repository_url::$(terraform-bin output -raw aws_ecr_repository_url)"
       outputs:
-            aws_ecr_registry_id: ${{ steps.apply.outputs.aws_ecr_registry_id }}
-            aws_ecr_repository_url: ${{ steps.apply.outputs.aws_ecr_repository_url }}
+            aws_ecr_registry_id: ${{ steps.tf_apply.outputs.aws_ecr_registry_id }}
+            aws_ecr_repository_url: ${{ steps.tf_apply.outputs.aws_ecr_repository_url }}
 
   build-img:
     name: Build Docker Image, Scan It (Security), and Push It to ECR
