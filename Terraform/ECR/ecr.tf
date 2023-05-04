@@ -37,3 +37,18 @@ output "aws_ecr_registry_id" {
 output "aws_ecr_repository_url" {
   value = aws_ecr_repository.rio-academy.repository_url
 }
+
+
+########## Variables #########
+variable "aws_access_key_id" {}
+variable "aws_secret_access_key" {}
+
+variable "aws_region" {
+  description = "AWS Region"
+  default     = "us-east-1"
+}
+
+variable "environment" {
+  description = "Deployment Environment"
+  default     = "testing"
+}
