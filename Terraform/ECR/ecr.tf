@@ -26,9 +26,9 @@ resource "aws_ecr_repository" "rio-academy" {
     scan_on_push = true
   } 
   encryption_configuration {                                # Added after checkov analysis
-    encryption_type                 = "KMS"                   
+    encryption_type = "KMS"                   
   }
-  force_delete                    = true
+  force_delete = true
 }
 
 ################## Outputs ########################
