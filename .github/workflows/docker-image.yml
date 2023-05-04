@@ -53,7 +53,11 @@ jobs:
         uses: actions/checkout@v2
       - name: Set up Python 3.9
         uses: actions/setup-python@v1
+              python-version: 3.9
+      - name: Checkov Test
+        uses: bridgcrewio/checkov-action@master 
         with:
-          python-version: 3.9
-        directory: Terraform/ECR
-        framework: terraform
+          directory: Terraform/ECR
+          framework: terraform
+
+      
