@@ -114,4 +114,7 @@ jobs:
            TF_VAR_aws_access_key_id:  ${{ secrets.AWS_ACCESS_KEY_ID }}
            TF_VAR_aws_secret_access_key:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         working-directory: Terraform/ECR   
-        run: terraform apply -auto-approve
+        run: |
+        terraform apply -auto-approve
+        echo "::set-output name=aws_ecr_registry_id::$(terraform-bin output -raw aws_ecr_registry_id)"
+        echo "::set-output name=aws_ecr_repository_url::$(terraform-bin output -raw aws_ecr_repository_url)"
