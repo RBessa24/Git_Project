@@ -143,7 +143,7 @@ jobs:
       id: build_image
       env:
         ECR_REPOSITORY_URL: ${{needs.create_ecr_registry.outputs.aws_ecr_repository_url}}
-        IMAGE_TAG: tmf632-party-mgmt-api
+        IMAGE_TAG: my-first-ecr-repo
       run: |
         echo "$ECR_REPOSITORY_URL"
         echo "$ECR_REPOSITORY_URL:$IMAGE_TAG"
@@ -157,7 +157,7 @@ jobs:
       id: push_image
       env:
         ECR_REPOSITORY_URL: ${{needs.create_ecr_registry.outputs.aws_ecr_repository_url}}
-        IMAGE_TAG: tmf632-party-mgmt-api
+        IMAGE_TAG: my-first-ecr-repo
       run: |
         echo "$ECR_REPOSITORY_URL"
         echo "$ECR_REPOSITORY_URL:$IMAGE_TAG"
