@@ -67,4 +67,7 @@ jobs:
       name: ECR Registry in AWS
       needs: [unit-tests, security_scan, scan_terraform_scripts]
       runs-on: ubuntu-latest
-   
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+ 
