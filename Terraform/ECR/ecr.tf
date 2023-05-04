@@ -12,6 +12,13 @@ terraform {
 resource "aws_ecr_repository" "rio-academy" {
   name = "my-first-ecr-repo" # Naming my repository
   image_tag_mutability = "IMMUTABLE"
+    image_scanning_configuration {                            # Added after checkov analysis
+    scan_on_push = true
+  } 
+  encryption_configuration {                                # Added after checkov analysis
+    encryption_type                 = "KMS"                   
+  }
+  force_delete                    = true
 }
 
 ################## Outputs ########################
