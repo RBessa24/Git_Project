@@ -5,6 +5,13 @@ terraform {
       version = "~>4.16"
     }
   }
+
+    backend "s3" {
+    bucket = "trash-user-terraform"
+    key    = "ecr_terraform_state"
+    region = "us-east-1"
+  }
+
   required_version = ">= 1.2.0"
 }
 
