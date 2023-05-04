@@ -76,4 +76,18 @@ jobs:
           with:
             terraform_version: 1.4.4
 
- 
+        - name: Terraform Init
+          env: 
+            AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          working-directory: Terraform/ECR   
+          run: terraform init
+
+        - name: Terraform Validate
+          env: 
+            AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          working-directory: Terraform/ECR   
+          run: terraform validate
+
+        
