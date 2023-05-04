@@ -31,7 +31,7 @@ jobs:
 
   security_scan:
       name: Security Scan
-      runs-on: ubuntu-20.04
+      runs-on: ubuntu-latest
       steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -42,3 +42,18 @@ jobs:
           scan-type: 'fs'
           scan-ref: '.'
           trivy-config: trivy.yaml
+
+
+
+  scan_terraform_scripts:
+      name: Scan Terraform Scripts  
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+        directory: Terraform/ECR
+        framework: terraform
