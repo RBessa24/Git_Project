@@ -8,6 +8,14 @@ terraform {
   required_version = ">= 1.2.0"
 }
 
+
+provider "aws" {
+  version = "~>4.0"
+  region     = var.aws_region
+  access_key = var.aws_access_key_id
+  secret_key = var.aws_secret_access_key
+}
+
 #####################################
 resource "aws_ecr_repository" "rio-academy" {
   name = "my-first-ecr-repo" # Naming my repository
