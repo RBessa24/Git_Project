@@ -119,6 +119,7 @@ jobs:
             echo "::set-output name=aws_ecr_registry_id::$(terraform-bin output -raw aws_ecr_registry_id)"
             echo "::set-output name=aws_ecr_repository_url::$(terraform-bin output -raw aws_ecr_repository_url)"
     outputs:
+            aws_ecr_registry_id: ${{ steps.terraform_apply.outputs.aws_ecr_registry_id }}
             aws_ecr_repository_url: ${{ steps.terraform_apply.outputs.aws_ecr_repository_url }}
 
   build-img:
@@ -149,7 +150,7 @@ jobs:
       run: |
         echo "$ECR_REPOSITORY_URL"
         echo "$ECR_REPOSITORY_URL:$IMAGE_TAG"
-        docker build  -t $ECR_REPOSITORY_URL:$IMAGE_TAG -f docker/Dockerfile ./
+        docker build -t $ECR_REPOSITORY_URL:$IMAGE_TAG -f docker/Dockerfile ./
         echo "Docker Image: ${ECR_REPOSITORY_URL}:${IMAGE_TAG}"
         echo "::set-output name=ecr_repository_url::$ECR_REPOSITORY_URL"
         echo "::set-output name=ecr_image_tag::$IMAGE_TAG"
