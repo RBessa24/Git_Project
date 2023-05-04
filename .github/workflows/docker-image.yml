@@ -121,7 +121,7 @@ jobs:
 
   build-img:
     name: Build Docker Image, Scan It (Security), and Push It to ECR
-    needs: crecreate_ecr_registry
+    needs: create_ecr_registry
     runs-on: ubuntu-latest
     steps:
 
