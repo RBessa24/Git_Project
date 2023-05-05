@@ -122,8 +122,8 @@ jobs:
             aws_ecr_registry_id: ${{ steps.tf_apply.outputs.aws_ecr_registry_id }}
             aws_ecr_repository_url: ${{ steps.tf_apply.outputs.aws_ecr_repository_url }}
 
-  build-img:
-    name: Build Docker Image, Scan It (Security), and Push It to ECR
+ build-img:
+    name: Build Docker Image and Push It to ECR
     needs: create_ecr_registry
     runs-on: ubuntu-latest
     steps:
@@ -146,7 +146,7 @@ jobs:
       id: build_image
       env:
         ECR_REPOSITORY_URL: ${{needs.create_ecr_registry.outputs.aws_ecr_repository_url}}
-        IMAGE_TAG: tmf632-party-mgmt-api
+        IMAGE_TAG: MyImage
       run: |
         echo "$ECR_REPOSITORY_URL"
         echo "$ECR_REPOSITORY_URL:$IMAGE_TAG"
@@ -160,11 +160,9 @@ jobs:
       id: push_image
       env:
         ECR_REPOSITORY_URL: ${{needs.create_ecr_registry.outputs.aws_ecr_repository_url}}
-        IMAGE_TAG: tmf632-party-mgmt-api
+        IMAGE_TAG: MyImage
       run: |
         echo "$ECR_REPOSITORY_URL"
         echo "$ECR_REPOSITORY_URL:$IMAGE_TAG"
         docker build  -t $ECR_REPOSITORY_URL:$IMAGE_TAG -f docker/Dockerfile ./
         docker push $ECR_REPOSITORY_URL:$IMAGE_TAG
-
-    
