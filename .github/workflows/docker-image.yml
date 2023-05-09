@@ -235,7 +235,7 @@ jobs:
 
 
   e2e_tests:
-      needs: deploy_testing_environment
+      needs: testing_environment
       name: "E2E Testing"
       runs-on: ubuntu-latest
       steps:
