@@ -165,7 +165,6 @@ resource "aws_ecs_service" "my_first_service" {
 
 #####################################    ALB      #############################################
 
-
 resource "aws_alb" "application_load_balancer" {
   name               = "test-lb-tf" # Naming our load balancer
   load_balancer_type = "application"
