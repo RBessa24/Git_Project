@@ -205,7 +205,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           TF_VAR_aws_access_key_id:  ${{ secrets.AWS_ACCESS_KEY_ID }}
           TF_VAR_aws_secret_access_key:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          TF_VAR_docker_image_name: ${{ needs.create_ecr_registry.outputs.aws_ecr_repository_url }}:${{ needs.build.outputs.ecr_image_tag }}
+          TF_VAR_docker_image_name: ${{ needs.create_ecr_registry.outputs.aws_ecr_repository_url }}:${{ needs.build-img.outputs.ecr_image_tag }}
         id: plan
         working-directory: Terraform/ECS
         run: |
@@ -224,14 +224,14 @@ jobs:
           AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           TF_VAR_aws_access_key_id:  ${{ secrets.AWS_ACCESS_KEY_ID }}
           TF_VAR_aws_secret_access_key:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          TF_VAR_docker_image_name: ${{ needs.create_ecr_registry.outputs.aws_ecr_repository_url }}:${{ needs.build.outputs.ecr_image_tag }}
+          TF_VAR_docker_image_name: ${{ needs.create_ecr_registry.outputs.aws_ecr_repository_url }}:${{ needs.build-img.outputs.ecr_image_tag }}
         working-directory: Terraform/ECS
         run: |
           echo "Docker Image Name: $TF_VAR_docker_image_name"
           terraform apply -auto-approve
           echo "::set-output name=api_url::$(terraform-bin output -raw alb_address)"
       outputs:
-        api_url: ${{ steps.terraform_apply_testing_environment.outputs.api_url }}
+        api_url: ${{ steps.apply_testing_environment.outputs.api_url }}
 
 
   e2e_tests:
@@ -259,7 +259,7 @@ jobs:
 
         - name: Wait for API to be Running
           env:
-            WAIT_FOR_ENDPOINT_URL: ${{ needs.deploy_testing_environment.outputs.api_url }}/healthcheck/
+            WAIT_FOR_ENDPOINT_URL: ${{ needs.testing_environment.outputs.api_url }}/healthcheck/
           working-directory: robot_tests
           run: |
             echo "HEALTHCHECK_ENDPOINT: $URL"
@@ -267,7 +267,7 @@ jobs:
 
         - name: Run E2E Tests
           env:
-            API_BASE_URL: ${{ needs.deploy_testing_environment.outputs.api_url }}
+            API_BASE_URL: ${{ needs.testing_environment.outputs.api_url }}
           working-directory: robot_tests
           run: |
             python -m robot .
@@ -301,7 +301,7 @@ jobs:
             AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             TF_VAR_aws_access_key_id:  ${{ secrets.AWS_ACCESS_KEY_ID }}
             TF_VAR_aws_secret_access_key:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            TF_VAR_docker_image_name: ${{ needs.create_ecr_registry.outputs.aws_ecr_repository_url }}:${{ needs.build.outputs.ecr_image_tag }}
+            TF_VAR_docker_image_name: ${{ needs.create_ecr_registry.outputs.aws_ecr_repository_url }}:${{ needs.build-img.outputs.ecr_image_tag }}
           working-directory: Terraform/ECS
           run: |
             echo "Docker Image Name: $TF_VAR_docker_image_name"
