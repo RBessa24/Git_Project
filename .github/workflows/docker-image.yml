@@ -7,27 +7,28 @@ on:
 
 
 jobs:
+
   unit-tests:
-    name: Unit Tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Upgrade pip
-        run: |
-            python -m pip install --upgrade pip
-      - name: Install dependencies
-        run: |
-            cd api
-            pip install -r requirements.txt
-      - name: Run tests
-        env: 
-          APP_ENV: test
-        run: | 
-            pytest
+      name: Unit Tests
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: 3.9
+        - name: Upgrade pip
+          run: |
+              python -m pip install --upgrade pip
+        - name: Install dependencies
+          run: |
+              cd api
+              pip install -r requirements.txt
+        - name: Run tests
+          env: 
+            APP_ENV: test
+          run: | 
+              pytest
 
 
   security_scan:
