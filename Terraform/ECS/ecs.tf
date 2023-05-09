@@ -1,4 +1,4 @@
-resource "aws_security_group" "sg" {
+/*esource "aws_security_group" "sg" {
   name   = "ecs-sg"
   vpc_id = aws_vpc.my_vpc.id
 
@@ -74,7 +74,7 @@ resource "aws_ecs_service" "service" {
   }
 }
 
-
+*/
 
 ######################################
 
@@ -84,7 +84,7 @@ resource "aws_ecs_task_definition" "my_first_task" {
   [
     {
       "name": "my-first-task",
-      "image": "trashuseraws/dummy:latest",
+      "image": "${var.docker_image_name}",
       "essential": true,
       "portMappings": [
         {
@@ -244,4 +244,16 @@ resource "aws_lb_listener" "listener" {
     type             = "forward"
     target_group_arn = "${aws_lb_target_group.target_group.arn}" # Referencing our tagrte group
   }
+}
+
+
+
+
+variable "docker_image_name" {}
+
+
+
+### Output ####
+output "alb_address" {
+  value = aws_alb.dummy_api_application_load_balancer.dns_name
 }
