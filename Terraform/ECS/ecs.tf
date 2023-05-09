@@ -78,7 +78,6 @@ resource "aws_ecs_service" "service" {
 
 ######################################
 
-
 resource "aws_ecs_task_definition" "my_first_task" {
   family                   = "my-first-task" # Naming our first task
   container_definitions    = <<DEFINITION
