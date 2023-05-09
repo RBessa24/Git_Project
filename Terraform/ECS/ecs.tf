@@ -73,8 +73,8 @@ resource "aws_ecs_service" "service" {
     ignore_changes = [task_definition]
   }
 }
-
 */
+
 
 ######################################
 
@@ -101,14 +101,14 @@ resource "aws_ecs_task_definition" "my_first_task" {
   network_mode             = "awsvpc"    # Using awsvpc as our network mode as this is required for Fargate
   memory                   = 2048        # Specifying the memory our container requires
   cpu                      = 512       # Specifying the CPU our container requires
-  #execution_role_arn       = "${aws_iam_role.ecsTaskExecutionRole2.arn}"
+  execution_role_arn       = "${aws_iam_role.ecsTaskExecutionRole2.arn}"
 }
 
-/*
+
 resource "aws_iam_role" "ecsTaskExecutionRole2" {
   name               = "ecsTaskExecutionRole2"
   assume_role_policy = "${data.aws_iam_policy_document.assume_role_policy.json}"
-}*/
+}
 
 data "aws_iam_policy_document" "assume_role_policy" {
   statement {
