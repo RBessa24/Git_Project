@@ -207,7 +207,7 @@ jobs:
           TF_VAR_aws_secret_access_key:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           TF_VAR_docker_image_name: ${{ needs.create_ecr_registry.outputs.aws_ecr_repository_url }}:${{ needs.build.outputs.ecr_image_tag }}
         id: plan
-        working-directory: terraform/ecs_terraform
+        working-directory: Terraform/ECS
         run: |
           echo "Docker Image Name: $TF_VAR_docker_image_name"
           terraform plan -no-color -input=false
