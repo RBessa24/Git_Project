@@ -101,7 +101,7 @@ resource "aws_ecs_task_definition" "my_first_task" {
   network_mode             = "awsvpc"    # Using awsvpc as our network mode as this is required for Fargate
   memory                   = 2048        # Specifying the memory our container requires
   cpu                      = 512       # Specifying the CPU our container requires
-  #execution_role_arn       = "${aws_iam_role.ecsTaskExecutionRole2.arn}"
+  execution_role_arn       = "${aws_iam_role.ecsTaskExecutionRole2.arn}"
 }
 
 resource "aws_iam_role" "ecsTaskExecutionRole2" {
