@@ -104,11 +104,11 @@ resource "aws_ecs_task_definition" "my_first_task" {
   execution_role_arn       = "${aws_iam_role.ecsTaskExecutionRole2.arn}"
 }
 
-
+/*
 resource "aws_iam_role" "ecsTaskExecutionRole2" {
   name               = "ecsTaskExecutionRole2"
   assume_role_policy = "${data.aws_iam_policy_document.assume_role_policy.json}"
-}
+}*/
 
 data "aws_iam_policy_document" "assume_role_policy" {
   statement {
