@@ -145,7 +145,7 @@ jobs:
           id: build_image
           env:
             ECR_REPOSITORY_URL: ${{needs.create_ecr_registry.outputs.aws_ecr_repository_url}}
-            IMAGE_TAG: MyImage
+            IMAGE_TAG: my-project-image
           run: |
             echo "$ECR_REPOSITORY_URL"
             echo "$ECR_REPOSITORY_URL:$IMAGE_TAG"
@@ -159,7 +159,7 @@ jobs:
           id: push_image
           env:
             ECR_REPOSITORY_URL: ${{needs.create_ecr_registry.outputs.aws_ecr_repository_url}}
-            IMAGE_TAG: MyImage
+            IMAGE_TAG: my-project-image
           run: |
             echo "$ECR_REPOSITORY_URL"
             echo "$ECR_REPOSITORY_URL:$IMAGE_TAG"

@@ -19,7 +19,7 @@ provider "aws" {
 
 #####################################
 resource "aws_ecr_repository" "rio-academy" {
-  name = "my-first-ecr-repo" # Naming my repository
+  name = "my-project-image" # Naming my repository
   image_tag_mutability = "IMMUTABLE"
     image_scanning_configuration {                            # Added after checkov analysis
     scan_on_push = true
