@@ -1,1 +1,6 @@
 credentials.tfvars
+terraform.tfstate
+.gitignore
+.terraform/providers/registry.terraform.io
+terraform.tfstate.backup
+.terraform.lock.hcl
