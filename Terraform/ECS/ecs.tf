@@ -77,6 +77,15 @@ resource "aws_ecs_service" "service" {
 
 
 ######################################
+resource "aws_cloudwatch_log_group" "base_api_client" {
+  name = "base-api-client"
+
+}
+
+resource "aws_cloudwatch_log_stream" "base_api_client" {
+  name           = "base-api-client"
+  log_group_name = aws_cloudwatch_log_group.base_api_client.name
+}
 
 resource "aws_ecs_task_definition" "my_first_task" {
   family                   = "my-first-task" # Naming our first task
@@ -92,6 +101,14 @@ resource "aws_ecs_task_definition" "my_first_task" {
           "hostPort": 80
         }
       ],
+       "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "base-api-client",
+          "awslogs-stream-prefix": "base-api-client",
+          "awslogs-region": "us-east-1"
+        }
+      },
       "memory": 1024,
       "cpu": 512
     }
@@ -101,12 +118,58 @@ resource "aws_ecs_task_definition" "my_first_task" {
   network_mode             = "awsvpc"    # Using awsvpc as our network mode as this is required for Fargate
   memory                   = 2048        # Specifying the memory our container requires
   cpu                      = 512       # Specifying the CPU our container requires
-  execution_role_arn       = "${aws_iam_role.ecsTaskExecutionRole2.arn}"
+  task_role_arn            = aws_iam_role.ecs_task_role.arn
 }
 
+/*
 resource "aws_iam_role" "ecsTaskExecutionRole2" {
   name               = "ecsTaskExecutionRole2"
   assume_role_policy = "${data.aws_iam_policy_document.assume_role_policy.json}"
+} */
+
+resource "aws_iam_role" "ecs_task_execution_role" {
+  name = "role-name"
+ 
+  assume_role_policy = <<EOF
+{
+ "Version": "2012-10-17",
+ "Statement": [
+   {
+     "Action": "sts:AssumeRole",
+     "Principal": {
+       "Service": "ecs-tasks.amazonaws.com"
+     },
+     "Effect": "Allow",
+     "Sid": ""
+   }
+ ]
+}
+EOF
+}
+
+resource "aws_iam_role" "ecs_task_role" {
+  name = "role-name-task"
+ 
+  assume_role_policy = <<EOF
+{
+ "Version": "2012-10-17",
+ "Statement": [
+   {
+     "Action": "sts:AssumeRole",
+     "Principal": {
+       "Service": "ecs-tasks.amazonaws.com"
+     },
+     "Effect": "Allow",
+     "Sid": ""
+   }
+ ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy-attachment" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
 data "aws_iam_policy_document" "assume_role_policy" {
@@ -120,11 +183,12 @@ data "aws_iam_policy_document" "assume_role_policy" {
   }
 }
 
+/*
 resource "aws_iam_role_policy_attachment" "ecsTaskExecutionRole2_policy" {
   role       = "${aws_iam_role.ecsTaskExecutionRole2.name}"
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
   }
-
+*/
 
 resource "aws_ecs_cluster" "my_cluster" {
   name = "my-cluster" # Naming the cluster
@@ -140,7 +204,7 @@ resource "aws_ecs_service" "my_first_service" {
   depends_on = [aws_ecs_task_definition.my_first_task]
   name            = "my-first-service"                             # Naming our first service
   cluster         = "${aws_ecs_cluster.my_cluster.id}"             # Referencing our created Cluster
-  task_definition = "${aws_ecs_task_definition.my_first_task.arn}" # Referencing the task our service will spin up
+  task_definition = "${aws_ecs_task_definition.my_first_task.id}" # Referencing the task our service will spin up
   launch_type     = "FARGATE"
   platform_version = "LATEST"
   desired_count   = 3 # Setting the number of containers we want deployed to 3
