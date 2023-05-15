@@ -13,7 +13,7 @@ terraform {
   required_version = ">= 1.2.0"
 }
 
-# Declare o provedor AWS e configure suas credenciais
+# Declare o provedor AWS e configure suas credenciai
 provider "aws" {
   region = "us-east-1"
 }
