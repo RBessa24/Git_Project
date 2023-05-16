@@ -306,7 +306,7 @@ variable "docker_image_name" {}
 
 
 
-### Output ####
+### Output ###
 output "alb_address" {
   value = aws_alb.application_load_balancer.dns_name
 }
