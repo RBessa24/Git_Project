@@ -101,9 +101,6 @@ resource "aws_ecs_task_definition" "my_first_task" {
           "awslogs-region": "us-east-1"
         }
       },
-      "environment": [
-        {"name": "APP_ENV"}
-      ]
       "memory": 1024,
       "cpu": 512
     }
