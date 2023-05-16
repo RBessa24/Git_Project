@@ -229,6 +229,7 @@ jobs:
         run: |
           echo "Docker Image Name: $TF_VAR_docker_image_name"
           terraform apply -auto-approve
+          echo $(terraform-bin output -raw alb_address)
           echo "::set-output name=api_url::$(terraform-bin output -raw alb_address)"
       outputs:
         api_url: ${{ steps.apply_testing_environment.outputs.api_url }}
@@ -259,7 +260,7 @@ jobs:
 
         - name: Wait for API to be Running
           env:
-            WAIT_FOR_ENDPOINT_URL: ${{ needs.testing_environment.outputs.api_url }}/healthcheck/
+            WAIT_FOR_ENDPOINT_URL: ${{ needs.testing_environment.outputs.api_url }}/healthcheck
           working-directory: robot_tests
           run: |
             echo "HEALTHCHECK_ENDPOINT: $URL"
