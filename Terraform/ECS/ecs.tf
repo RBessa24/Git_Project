@@ -109,6 +109,7 @@ resource "aws_ecs_task_definition" "my_first_task" {
   memory                   = 2048        # Specifying the memory our container requires
   cpu                      = 512       # Specifying the CPU our container requires
   task_role_arn            = aws_iam_role.ecs_task_role.arn
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
 }
 
 
@@ -173,12 +174,12 @@ data "aws_iam_policy_document" "assume_role_policy" {
   }
 }
 
-/*
+
 resource "aws_iam_role_policy_attachment" "ecsTaskExecutionRole2_policy" {
   role       = "${aws_iam_role.ecsTaskExecutionRole2.name}"
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
   }
-*/
+
 
 resource "aws_ecs_cluster" "my_cluster" {
   name = "my-cluster" # Naming the cluster
