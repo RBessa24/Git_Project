@@ -101,6 +101,9 @@ resource "aws_ecs_task_definition" "my_first_task" {
           "awslogs-region": "us-east-1"
         }
       },
+      "environment": [
+        {"name": "APP_ENV", "value": "test"}
+      ],
       "memory": 1024,
       "cpu": 512
     }
@@ -227,6 +230,8 @@ resource "aws_ecs_service" "my_first_service" {
 
 resource "aws_cloudwatch_log_group" "base_api_client" {
   name = "base-api-client"
+
+
 }
 
 resource "aws_cloudwatch_log_stream" "base_api_client" {
