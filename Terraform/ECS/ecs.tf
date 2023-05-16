@@ -77,6 +77,8 @@ resource "aws_ecs_service" "service" {
 
 
 ######################################
+
+
 resource "aws_ecs_task_definition" "my_first_task" {
   family                   = "my-first-task" # Naming our first task
   container_definitions    = <<DEFINITION
@@ -99,6 +101,9 @@ resource "aws_ecs_task_definition" "my_first_task" {
           "awslogs-region": "us-east-1"
         }
       },
+      "environment": [
+        {"name": "APP_ENV"}
+      ]
       "memory": 1024,
       "cpu": 512
     }
@@ -163,6 +168,11 @@ resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy-attach
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+resource "aws_iam_role_policy_attachment" "task_s3" {
+  role       = "${aws_iam_role.ecs_task_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
+
 data "aws_iam_policy_document" "assume_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -216,6 +226,17 @@ resource "aws_ecs_service" "my_first_service" {
     ignore_changes = [task_definition]
   }
 }
+
+
+resource "aws_cloudwatch_log_group" "base_api_client" {
+  name = "base-api-client"
+}
+
+resource "aws_cloudwatch_log_stream" "base_api_client" {
+  name           = "base-api-client"
+  log_group_name = aws_cloudwatch_log_group.base_api_client.name
+}
+
 
 
 #####################################    ALB      #############################################
@@ -285,7 +306,7 @@ resource "aws_lb_target_group" "target_group" {
   vpc_id      = "${aws_vpc.my_vpc.id}" # Referencing the default VPC
   health_check {
     matcher = "200,301,302"
-    path = "/"
+    path = "/organization"
   }
 }
 
