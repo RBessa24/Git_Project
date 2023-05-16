@@ -77,16 +77,6 @@ resource "aws_ecs_service" "service" {
 
 
 ######################################
-resource "aws_cloudwatch_log_group" "base_api_client" {
-  name = "base-api-client"
-
-}
-
-resource "aws_cloudwatch_log_stream" "base_api_client" {
-  name           = "base-api-client"
-  log_group_name = aws_cloudwatch_log_group.base_api_client.name
-}
-
 resource "aws_ecs_task_definition" "my_first_task" {
   family                   = "my-first-task" # Naming our first task
   container_definitions    = <<DEFINITION
@@ -118,14 +108,14 @@ resource "aws_ecs_task_definition" "my_first_task" {
   network_mode             = "awsvpc"    # Using awsvpc as our network mode as this is required for Fargate
   memory                   = 2048        # Specifying the memory our container requires
   cpu                      = 512       # Specifying the CPU our container requires
-  task_role_arn            = aws_iam_role.ecs_task_role.arn
+  #task_role_arn            = aws_iam_role.ecs_task_role.arn
 }
 
-/*
+
 resource "aws_iam_role" "ecsTaskExecutionRole2" {
   name               = "ecsTaskExecutionRole2"
   assume_role_policy = "${data.aws_iam_policy_document.assume_role_policy.json}"
-} */
+} 
 
 resource "aws_iam_role" "ecs_task_execution_role" {
   name = "role-name"
