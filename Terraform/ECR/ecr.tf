@@ -4,6 +4,12 @@ terraform {
       source  = "hashicorp/aws"
       version = "~>4.16"
     }
+
+    backend "s3" {
+    bucket = "bessas3"
+    key    = "ecr_terraform_state"
+    region = "us-east-1"
+  }
   }
 
 
